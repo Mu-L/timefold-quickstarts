@@ -145,12 +145,18 @@ function getShiftColor(shift, employee) {
 function refreshSchedule() {
     let path = "/schedules/" + scheduleId;
     if (scheduleId === null) {
-        if (demoDataId === null) {
-            alert("Please select a test data set.");
-            return;
+        var QueryString = (new URL(location.href)).searchParams.get('plan');
+        if(QueryString) {
+            scheduleId = QueryString;
+            path = "/schedules/" + scheduleId;
+        } else {
+            if (demoDataId === null) {
+                alert("Please select a test data set.");
+                return;
+            } else {
+                path = "/demo-data/" + demoDataId+"?customized=security guard";
+            }
         }
-
-        path = "/demo-data/" + demoDataId;
     }
     $.getJSON(path, function (schedule) {
         loadedSchedule = schedule;
