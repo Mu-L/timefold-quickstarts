@@ -32,6 +32,7 @@ updates:
     patterns: [ "*" ]
     ignore:
       - dependency-name: "org.webjars:*"
+      - dependency-name: "org.webjars.npm:*"
       - dependency-name: "io.quarkus:*"
       - dependency-name: "org.springframework:*"
       - dependency-name: "org.springframework.boot:*"
@@ -41,6 +42,7 @@ updates:
     patterns: [ "*" ]
     ignore:
       - dependency-name: "org.webjars:*"
+      - dependency-name: "org.webjars.npm:*"
       - dependency-name: "io.quarkus:*"
       - dependency-name: "org.springframework:*"
       - dependency-name: "org.springframework.boot:*"
@@ -54,11 +56,21 @@ updates:
     directory: "/"
     patterns:
       - "io.quarkus:*"
+    ignore:
+      - dependency-name: "org.webjars:*"
+      - dependency-name: "org.webjars.npm:*"
+      - dependency-name: "org.springframework:*"
+      - dependency-name: "org.springframework.boot:*"
     multi-ecosystem-group: "quickstarts-quarkus"
   - package-ecosystem: "gradle"
     directory: "/"
     patterns:
       - "io.quarkus:*"
+    ignore:
+      - dependency-name: "org.webjars:*"
+      - dependency-name: "org.webjars.npm:*"
+      - dependency-name: "org.springframework:*"
+      - dependency-name: "org.springframework.boot:*"
     multi-ecosystem-group: "quickstarts-quarkus"
 
   - package-ecosystem: "maven"
@@ -66,10 +78,18 @@ updates:
     patterns:
       - "org.springframework:*"
       - "org.springframework.boot:*"
+    ignore:
+      - dependency-name: "org.webjars:*"
+      - dependency-name: "org.webjars.npm:*"
+      - dependency-name: "io.quarkus:*"
     multi-ecosystem-group: "quickstarts-spring"
   - package-ecosystem: "gradle"
     directory: "/"
     patterns:
       - "org.springframework:*"
       - "org.springframework.boot:*"
+    ignore:
+      - dependency-name: "org.webjars:*"
+      - dependency-name: "org.webjars.npm:*"
+      - dependency-name: "io.quarkus:*"
     multi-ecosystem-group: "quickstarts-spring"
