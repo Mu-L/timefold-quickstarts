@@ -2,7 +2,7 @@ version: 2
 
 # Registries are defined in the organization settings.
 multi-ecosystem-groups:
-  quickstarts:
+  base:
     schedule:
       interval: weekly
       time: '03:00' # Otherwise it picks a random time.
@@ -10,14 +10,14 @@ multi-ecosystem-groups:
     commit-message:
       prefix: "deps: "
   # Big dependencies (Quarkus, Spring) are treated separately, so that we can decide to merge or not.
-  quickstarts-quarkus:
+  quarkus:
     schedule:
       interval: weekly
       time: '03:00' # Otherwise it picks a random time.
     target-branch: "development"
     commit-message:
       prefix: "deps: "
-  quickstarts-spring:
+  spring:
     schedule:
       interval: weekly
       time: '03:00' # Otherwise it picks a random time.
@@ -31,65 +31,45 @@ updates:
     directory: "/"
     patterns: [ "*" ]
     ignore:
-      - dependency-name: "org.webjars:*"
-      - dependency-name: "org.webjars.npm:*"
-      - dependency-name: "io.quarkus:*"
-      - dependency-name: "org.springframework:*"
-      - dependency-name: "org.springframework.boot:*"
-    multi-ecosystem-group: "quickstarts"
+      - dependency-name: "org.webjars.*"
+      - dependency-name: "io.quarkus.*"
+      - dependency-name: "org.springframework.*"
+      - dependency-name: "org.springframework.boot.*"
+    multi-ecosystem-group: "base"
   - package-ecosystem: "gradle"
     directory: "/"
     patterns: [ "*" ]
     ignore:
-      - dependency-name: "org.webjars:*"
-      - dependency-name: "org.webjars.npm:*"
-      - dependency-name: "io.quarkus:*"
-      - dependency-name: "org.springframework:*"
-      - dependency-name: "org.springframework.boot:*"
-    multi-ecosystem-group: "quickstarts"
+      - dependency-name: "org.webjars.*"
+      - dependency-name: "io.quarkus.*"
+      - dependency-name: "org.springframework.*"
+      - dependency-name: "org.springframework.boot.*"
+    multi-ecosystem-group: "base"
   - package-ecosystem: "github-actions"
     directory: "/"
     patterns: [ "*" ]
-    multi-ecosystem-group: "quickstarts"
+    multi-ecosystem-group: "base"
 
   - package-ecosystem: "maven"
     directory: "/"
     patterns:
-      - "io.quarkus:*"
-    ignore:
-      - dependency-name: "org.webjars:*"
-      - dependency-name: "org.webjars.npm:*"
-      - dependency-name: "org.springframework:*"
-      - dependency-name: "org.springframework.boot:*"
-    multi-ecosystem-group: "quickstarts-quarkus"
+      - "io.quarkus.*"
+    multi-ecosystem-group: "quarkus"
   - package-ecosystem: "gradle"
     directory: "/"
     patterns:
-      - "io.quarkus:*"
-    ignore:
-      - dependency-name: "org.webjars:*"
-      - dependency-name: "org.webjars.npm:*"
-      - dependency-name: "org.springframework:*"
-      - dependency-name: "org.springframework.boot:*"
-    multi-ecosystem-group: "quickstarts-quarkus"
+      - "io.quarkus.*"
+    multi-ecosystem-group: "quarkus"
 
   - package-ecosystem: "maven"
     directory: "/"
     patterns:
-      - "org.springframework:*"
-      - "org.springframework.boot:*"
-    ignore:
-      - dependency-name: "org.webjars:*"
-      - dependency-name: "org.webjars.npm:*"
-      - dependency-name: "io.quarkus:*"
-    multi-ecosystem-group: "quickstarts-spring"
+      - "org.springframework.*"
+      - "org.springframework.boot.*"
+    multi-ecosystem-group: "spring"
   - package-ecosystem: "gradle"
     directory: "/"
     patterns:
-      - "org.springframework:*"
-      - "org.springframework.boot:*"
-    ignore:
-      - dependency-name: "org.webjars:*"
-      - dependency-name: "org.webjars.npm:*"
-      - dependency-name: "io.quarkus:*"
-    multi-ecosystem-group: "quickstarts-spring"
+      - "org.springframework.*"
+      - "org.springframework.boot.*"
+    multi-ecosystem-group: "spring"
