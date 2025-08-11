@@ -60,12 +60,20 @@ updates:
     directory: "/"
     patterns:
       - "io.quarkus:*"
+    ignore:
+      - dependency-name: "org.webjars:*"
+      - dependency-name: "org.springframework:*"
+      - dependency-name: "org.springframework.boot:*"
     multi-ecosystem-group: "quarkus"
   - package-ecosystem: "gradle"
     directory: "/"
     patterns:
       - "io.quarkus"
       - "io.quarkus:*"
+    ignore:
+      - dependency-name: "org.webjars:*"
+      - dependency-name: "org.springframework:*"
+      - dependency-name: "org.springframework.boot:*"
     multi-ecosystem-group: "quarkus"
 
   - package-ecosystem: "maven"
@@ -73,10 +81,21 @@ updates:
     patterns:
       - "org.springframework:*"
       - "org.springframework.boot:*"
+    allow:
+      - dependency-type: "all"
+    ignore:
+      - dependency-name: "org.webjars:*"
+      - dependency-name: "io.quarkus:*"
     multi-ecosystem-group: "spring"
   - package-ecosystem: "gradle"
     directory: "/"
     patterns:
       - "org.springframework:*"
       - "org.springframework.boot:*"
+    allow:
+      - dependency-type: "all"
+    ignore:
+      - dependency-name: "org.webjars:*"
+      - dependency-name: "io.quarkus"
+      - dependency-name: "io.quarkus:*"
     multi-ecosystem-group: "spring"
