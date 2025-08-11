@@ -25,8 +25,21 @@ multi-ecosystem-groups:
     commit-message:
       prefix: "deps: "
 
-# Webjars are skipped entirely; we cannot retest the UI of every quickstarts every time a dependency bumps.
-# Ignore only seems to work if allow is also defined.
+# The desired behavior is:
+# - All dependencies are updated in the same PR, regardless of the package ecosystem. 
+#   (Quarkus together, Spring together etc.)
+# - Quarkus and Spring dependencies are updated in separate PRs, so that we can decide to not merge them.
+#   (Help when these large projects sometimes bring breaking changes.)
+# - All three update groups are completely mutually exclusive.
+#   (Dependencies from one group are never updated in another group.)
+# - Webjars are skipped entirely.
+#   (We cannot retest the UI of every quickstarts every time a dependency bumps.)
+
+# To achieve this, we use the following configuration:
+# - Patterns are used to match all dependencies, so that we can use allow and ignore.
+# - Ignore only seems to work if allow is also defined.
+# - This was the only way to get the desired behavior, established through trial and error; 
+#   Dependabot does not really document this complex use case.
 updates:
   - package-ecosystem: "maven"
     directory: "/"
@@ -58,8 +71,9 @@ updates:
 
   - package-ecosystem: "maven"
     directory: "/"
-    patterns:
-      - "io.quarkus:*"
+    patterns: [ "*" ]
+    allow:
+      - dependency-name: "io.quarkus:*"
     ignore:
       - dependency-name: "org.webjars:*"
       - dependency-name: "org.springframework:*"
@@ -67,9 +81,10 @@ updates:
     multi-ecosystem-group: "quarkus"
   - package-ecosystem: "gradle"
     directory: "/"
-    patterns:
-      - "io.quarkus"
-      - "io.quarkus:*"
+    patterns: [ "*" ]
+    allow:
+      - dependency-name: "io.quarkus"
+      - dependency-name: "io.quarkus:*"
     ignore:
       - dependency-name: "org.webjars:*"
       - dependency-name: "org.springframework:*"
@@ -78,22 +93,20 @@ updates:
 
   - package-ecosystem: "maven"
     directory: "/"
-    patterns:
-      - "org.springframework:*"
-      - "org.springframework.boot:*"
+    patterns: [ "*" ]
     allow:
-      - dependency-type: "all"
+      - dependency-name: "org.springframework:*"
+      - dependency-name: "org.springframework.boot:*"
     ignore:
       - dependency-name: "org.webjars:*"
       - dependency-name: "io.quarkus:*"
     multi-ecosystem-group: "spring"
   - package-ecosystem: "gradle"
     directory: "/"
-    patterns:
-      - "org.springframework:*"
-      - "org.springframework.boot:*"
+    patterns: [ "*" ]
     allow:
-      - dependency-type: "all"
+      - dependency-name: "org.springframework:*"
+      - dependency-name: "org.springframework.boot:*"
     ignore:
       - dependency-name: "org.webjars:*"
       - dependency-name: "io.quarkus"
